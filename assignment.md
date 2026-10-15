@@ -6,6 +6,10 @@ Work in two steps — everything you need was taught in this lesson:
 
 **Step A — Find the undervalued towns.** Write a `GROUP BY town` query with `HAVING AVG(resale_price) < 460000` to list towns where the average price is under $460,000. Run it and note down the town names.
 
+```
+Yishun
+```
+
 **Step B — Find the biggest flats in those towns.** Write a second query that filters flats using the town names you found, with a plain `WHERE town IN ('…', '…', …)`, then sort by floor\_area\_sqm descending and keep the top 5.
 
 **Level Up:** Create a new column called price\_per\_sqm and find which town has the lowest average price per square meter.
