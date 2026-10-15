@@ -59,16 +59,28 @@ Write your SQL answers in the code blocks below each question. Check your work a
 
 Select the minimum and maximum price per sqm of all the flats.
 
-```sql
-
+```
+SELECT 
+    MIN(resale_price / floor_area_sqm) AS min_price_per_sqm,
+    MAX(resale_price / floor_area_sqm) AS max_price_per_sqm
+FROM 
+    resale_flat_prices_2017;
 ```
 
 ### Question 2
 
 Select the average price per sqm for flats in each town.
 
-```sql
-
+```
+SELECT 
+    town,
+    AVG(resale_price / floor_area_sqm) AS avg_price_per_sqm
+FROM 
+    resale_flat_prices_2017
+GROUP BY 
+    town
+ORDER BY 
+    avg_price_per_sqm ASC;
 ```
 
 ### Question 3
@@ -80,16 +92,38 @@ Categorize flats into price ranges and count how many flats fall into each categ
 - Above $700,000: 'Premium'
   Show the counts in descending order.
 
-```sql
-
+```
+SELECT 
+    CASE 
+        WHEN resale_price < 400000 THEN 'Budget'
+        WHEN resale_price BETWEEN 400000 AND 700000 THEN 'Mid-Range'
+        ELSE 'Premium'
+    END AS price_category,
+    COUNT(*) AS flat_count
+FROM 
+    resale_flat_prices_2017
+GROUP BY 
+    price_category
+ORDER BY 
+    flat_count DESC;
 ```
 
 ### Question 4
 
 Count the number of flats sold in each town during the first quarter of 2017 (January to March).
 
-```sql
-
+```
+SELECT 
+    town,
+    COUNT(*) AS flats_sold_q1
+FROM 
+    resale_flat_prices_2017
+WHERE 
+    month >= '2017-01' AND month <= '2017-03'
+GROUP BY 
+    town
+ORDER BY 
+    flats_sold_q1 DESC;
 ```
 
 ---
