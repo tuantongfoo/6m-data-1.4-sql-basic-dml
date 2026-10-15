@@ -46,6 +46,7 @@ WHERE
 ORDER BY 
     floor_area_sqm DESC
 LIMIT 5
+```
 ---
 
 Write the SQL DML statements for the following questions.
