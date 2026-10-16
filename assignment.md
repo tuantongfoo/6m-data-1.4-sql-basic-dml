@@ -7,12 +7,38 @@ Work in two steps — everything you need was taught in this lesson:
 **Step A — Find the undervalued towns.** Write a `GROUP BY town` query with `HAVING AVG(resale_price) < 460000` to list towns where the average price is under $460,000. Run it and note down the town names.
 
 ```
-Yishun
+SELECT 
+    town,
+    AVG(resale_price) AS avg_resale_price
+FROM 
+    resale_flat_prices_2017
+GROUP BY 
+    town
+HAVING 
+    AVG(resale_price) < 460000
+ORDER BY 
+    avg_resale_price ASC;
+
+Answer: Yishun
 ```
 
 **Step B — Find the biggest flats in those towns.** Write a second query that filters flats using the town names you found, with a plain `WHERE town IN ('…', '…', …)`, then sort by floor\_area\_sqm descending and keep the top 5.
 
 ```
+SELECT 
+    town,
+    flat_type,
+    floor_area_sqm,
+    resale_price
+FROM 
+    resale_flat_prices_2017
+WHERE 
+    town IN ('YISHUN')
+ORDER BY 
+    floor_area_sqm DESC
+LIMIT 5;
+
+Answer:
 YISHUN	EXECUTIVE	195	1260000
 YISHUN	EXECUTIVE	187	1038000
 YISHUN	EXECUTIVE	181	888000
@@ -23,7 +49,18 @@ YISHUN	EXECUTIVE	181	1068000
 **Level Up:** Create a new column called price\_per\_sqm and find which town has the lowest average price per square meter.
 
 ```
-CHOA CHU KANG
+SELECT 
+    town,
+    AVG(resale_price / floor_area_sqm) AS avg_price_per_sqm
+FROM 
+    resale_flat_prices_2017
+GROUP BY 
+    town
+ORDER BY 
+    avg_price_per_sqm ASC
+LIMIT 1;
+
+Answer: CHOA CHU KANG
 ```
 
 **🚀 Stretch goal (Lesson 1.5 preview):** a *subquery* lets you nest both steps into one query — try it after the two-step way works.
